@@ -1,5 +1,30 @@
 @import 'tailwindcss';
 
+@theme {
+  --color-primary: oklch(51.4% 0.1623 356.09);
+  --color-background: oklch(27.8% 0.0055 286.04);
+  --color-on-background: oklch(19.39% 0.0151 18.54);
+  --color-content-color: oklch(86.69% 0 0);
+  --color-surface: oklch(35.05% 0.0028 17.29);
+  --color-light-gray: oklch(81.72% 0 0);
+  --color-on-primary: oklch(100% 0 0);
+  --color-secondary: oklch(66.24% 0.1867 249.84);
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('assets\fonts\NotoSans-Italic-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('assets\fonts\NotoSans-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -30,6 +55,7 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  font-family: 'Noto Sans';
 }
 
 h1 {
