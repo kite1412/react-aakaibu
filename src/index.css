@@ -9,6 +9,7 @@
   --color-light-gray: oklch(81.72% 0 0);
   --color-on-primary: oklch(100% 0 0);
   --color-secondary: oklch(66.24% 0.1867 249.84);
+  --color-cerise: oklch(59.79% 0.208 9.89);
 }
 
 @font-face {
