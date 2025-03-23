@@ -1,0 +1,23 @@
+* Home
+  - anime recommendations
+  - latest updates (auth)
+  - current season anime list
+
+* Manga
+  - recommendations
+  - continue reading
+
+* Anime
+  - recommendations
+  - current season anime list
+  - anime schedules
+  - continue watching
+
+* User List
+  - user anime & manga list
+
+* Search
+  - sort & filter
+
+* Settings
+  - enable/disable nsfw
