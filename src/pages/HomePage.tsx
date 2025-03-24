@@ -13,7 +13,7 @@ export default function HomePage() {
 
 function AppLogo() {
   return (
-    <div className="font-bold flex flex-col gap-4">
+    <div className="font-bold flex flex-col gap-4 select-none">
       <span
         className="text-5xl text-primary"
         style={{
@@ -22,7 +22,7 @@ function AppLogo() {
       >
         アーカイブ
       </span>
-      <div className="flex gap-2 items-center">
+      <div className="flex gap-4 items-center">
         <Languages />
         <i className="text-medium">~Archive</i>
       </div>

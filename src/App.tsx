@@ -3,15 +3,22 @@ import SideNavBar from "./components/SideNavBar"
 import { AuthProvider } from "./context/AuthContext"
 import { HOME_PATH } from "./constants/paths"
 import HomePage from "./pages/HomePage"
+import { useState } from "react"
 
 export default function App() {
+  const [showNavBar, setShowNavBar] = useState(true)
+
   return (
     <BrowserRouter>
       <AuthProvider>
-        <div className="bg-background h-screen w-screen text-content-color">
+        <div className="bg-background h-screen w-screen text-content-color overflow-hidden">
           <div className="flex size-full py-6">
-            <div className="ps-8">
-              <SideNavBar />
+            <div className={`${showNavBar ? "ps-8" : "ps-6"}`}>
+              <SideNavBar 
+                visible={showNavBar}
+                onVisibleChange={setShowNavBar}
+                className={`${!showNavBar && "py-8"}`}
+              />
             </div>
             <Routes>
               <Route 

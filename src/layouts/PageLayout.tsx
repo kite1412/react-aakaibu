@@ -6,7 +6,7 @@ export default function PageLayout({
   children: JSX.Element
 }) {
   return (
-    <div className="px-8 py-6 size-full">
+    <div className="px-8 py-6 size-full overflow-y-auto">
       {children}
     </div>
   )

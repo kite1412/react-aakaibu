@@ -9,6 +9,8 @@ import SignOut from "../assets/sign-out.svg?react"
 import { ANIME_PATH, HOME_PATH, MANGA_PATH, USER_LIST_PATH } from "../constants/paths"
 import { useLocation, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
+import { AnimatePresence, motion } from "framer-motion"
+import AlignLeft from "../assets/align-left.svg?react"
 
 interface Destination {
   icon: JSX.Element
@@ -48,48 +50,88 @@ const destinations = (selectedPath: string, onClick: (path: string) => void) => 
   ]
 )
 
-export default function SideNavBar({ className = "" }) {
+interface SideNavBarProps {
+  visible: boolean
+  onVisibleChange: (visible: boolean) => void
+  className?: string
+}
+
+export default function SideNavBar({ 
+  visible,
+  onVisibleChange,
+  className = ""
+}: SideNavBarProps) {
   const navigate = useNavigate()
   const { isAuthenticated } = useAuth()
   const { pathname } = useLocation()
+  const dismissedStyle = {
+    opacity: 0,
+    marginLeft: "-50px"
+  }
 
   return (
-    <div className={`
-      h-full w-fit bg-on-background rounded-[32px] px-5 py-8
-      flex flex-col justify-between
-      ${className}
-    `}>
-      <div className="flex flex-col gap-18 items-center">
-        <div className="flex flex-col gap-4">
-          {
-            destinations(pathname, p => navigate(p)).map(d => (
-              <DestinationButton 
-                icon={d.icon} 
-                path={d.path}
-                selected={d.selected}
-                onClick={d.onClick} 
+    <>
+      <AnimatePresence>
+        {
+          visible && <motion.div 
+            className={`
+              h-full w-fit bg-on-background rounded-[32px] px-5 py-8
+              flex flex-col justify-between
+              ${className}
+            `}
+            initial={dismissedStyle}
+            animate={{
+              opacity: 1,
+              marginLeft: "0px"
+            }}
+            exit={dismissedStyle}
+          >
+            <div className="flex flex-col gap-18 items-center">
+              <div className="flex flex-col gap-4">
+                {
+                  destinations(pathname, p => navigate(p)).map(d => (
+                    <DestinationButton 
+                      icon={d.icon} 
+                      path={d.path}
+                      selected={d.selected}
+                      onClick={d.onClick} 
+                    />
+                  ))
+                }
+              </div>
+              {
+                !isAuthenticated && <SignIn 
+                  className={`text-primary ${iconButton}`}
+                />
+              }
+            </div>
+            <div className="flex flex-col gap-12 items-center">
+              {
+                isAuthenticated && <div className="flex flex-col gap-8">
+                  { /* Profile pic */ }
+                  <SignOut className={`text-cerise ${iconButton}`} />
+                </div>
+              }
+              <ChevronLeft 
+                className={`${iconButton} rounded-full bg-surface p-[2px]`}
+                onClick={() => onVisibleChange(false)}
               />
-            ))
-          }
-        </div>
-        {
-          !isAuthenticated && <SignIn 
-            className={`text-primary ${iconButton}`}
+            </div>
+          </motion.div>
+        }
+      </AnimatePresence>
+      {
+        !visible && <div className={`${className}`}>
+          <AlignLeft
+            className={`
+              size-[48px] ${iconButton} rounded-full
+              bg-on-background p-3
+            `}
+            onClick={() => onVisibleChange(true)}
           />
-        }
-      </div>
-      <div className="flex flex-col gap-12 items-center">
-        {
-          isAuthenticated && <div className="flex flex-col gap-8">
-            { /* Profile pic */ }
-            <SignOut className={`text-cerise ${iconButton}`} />
-          </div>
-        }
-        <ChevronLeft 
-          className={`${iconButton} rounded-full bg-surface p-[2px]`}
-        />
-      </div>
-    </div>
+        </div>
+      }
+    </>
   )
 }
 
