@@ -18,9 +18,9 @@ export default interface JikanAnime extends Media {
 }
 
 interface Trailer {
-  youtubeId: string | null
+  youtube_id: string | null
   url: string | null
-  embedUrl: string | null
+  embed_url: string | null
 }
 
 interface Broadcast {

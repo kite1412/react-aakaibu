@@ -1,11 +1,11 @@
 export default interface Pagination {
-  lastVisiblePage: number
-  hasNextPage: boolean
+  last_visible_page: number
+  has_next_page: boolean
   items: Items
 }
 
 interface Items {
   count: number
   total: number
-  perPage: number
+  per_page: number
 }

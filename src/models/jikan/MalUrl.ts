@@ -1,5 +1,5 @@
 export default interface MalUrl {
-  malId: number
+  mal_id: number
   type: string
   name: string
   url: string
