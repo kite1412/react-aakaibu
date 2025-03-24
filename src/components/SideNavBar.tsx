@@ -59,7 +59,7 @@ export default function SideNavBar({ className = "" }) {
       flex flex-col justify-between
       ${className}
     `}>
-      <div className="flex flex-col gap-18">
+      <div className="flex flex-col gap-18 items-center">
         <div className="flex flex-col gap-4">
           {
             destinations(pathname, p => navigate(p)).map(d => (
@@ -90,7 +90,7 @@ export default function SideNavBar({ className = "" }) {
         />
       </div>
     </div>
-  );
+  )
 }
 
 function DestinationButton({
@@ -114,5 +114,5 @@ function DestinationButton({
         {icon}
       </div>
     </div>
-  );
+  )
 }

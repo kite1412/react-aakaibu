@@ -15,7 +15,7 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState(true)
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
   
   return (
     <AuthContext.Provider
@@ -25,7 +25,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
     >
       {children}
     </AuthContext.Provider>
-  );
+  )
 }
 
 export function useAuth() {
