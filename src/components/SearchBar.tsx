@@ -1,4 +1,3 @@
-import { input } from "framer-motion/client"
 import Search from "../assets/search.svg?react"
 
 interface SearchBarProps {
