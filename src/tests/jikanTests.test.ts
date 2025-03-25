@@ -7,14 +7,13 @@ const service: JikanService = new JikanServiceImpl()
 test("get a list of top anime", async () => {
   const res = await service.getTopAnime()
   expect(
-    res !== null 
-      && typeof res === "object"
+    typeof res === "object"
       && res.data.length > 0
   ).toBe(true)
 })
 
 test("get a list of top airing anime", async () => {
   const res = await service.getTopAiringAnime()
-  expect(res).not.toBeNull()
+  expect(res).toBeDefined()
   expect(res?.data.length).toBeGreaterThan(0)
 })
