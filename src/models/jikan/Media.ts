@@ -1,5 +1,6 @@
 import MalUrl from "./MalUrl"
 import Images from "./Images"
+import Title from "./Title"
 
 export default interface Media {
   mal_id: number
@@ -24,9 +25,4 @@ export default interface Media {
   explicit_genres: Array<MalUrl>
   themes: Array<MalUrl>
   demographics: Array<MalUrl>
-}
-
-interface Title {
-  type: string
-  title: string
 }

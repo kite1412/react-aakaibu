@@ -15,6 +15,7 @@ export default abstract class Client {
         throw e
       })
 
-   return res.data
+    console.log(`Success: ${url}`)
+    return res.data
   }
 }
