@@ -12,18 +12,15 @@ import Radio from "../assets/radio.svg?react"
 import { useQuery } from "@tanstack/react-query"
 import { jikanService } from "../services"
 import { AnimatePresence, easeInOut, motion } from "framer-motion"
+import CircularProgressIndicator from "../components/CircularProgressIndicator"
 
 export default function HomePage() {
   const [searchValue, setSearchValue] = useState("")
-  const { data } = useQuery({
-    queryKey: ["airingAnime"],
-    queryFn: () => jikanService.getTopAiringAnime()
-  })
 
   return <PageLayout>
     <div className="flex flex-col gap-4">
       <AppLogo />
-      <div className="flex gap-6 items-center">
+      <div className="flex gap-6">
         <div className="flex flex-col gap-10 flex-2/3">
           <div className="flex items-center justify-between">
             <div className="flex gap-4 items-center select-none">
@@ -35,7 +32,7 @@ export default function HomePage() {
               onValueChange={setSearchValue}
             />
           </div>
-          <AiringNow airingAnime={data?.data ?? []} />
+          <AiringNow />
         </div>
         <div className="flex-1/3">
           asd
@@ -60,13 +57,11 @@ function AppLogo() {
   )
 }
 
-function AiringNow({
-  airingAnime
-}: {
-  airingAnime: Array<JikanAnime>
-}) {
-  if (airingAnime.length <= 0) return
-  
+function AiringNow() {
+  const { data, isPending } = useQuery({
+    queryKey: ["airingAnime"],
+    queryFn: () => jikanService.getTopAiringAnime()
+  })
   const [selectedIndex, setSelectedIndex] = useState(0)
   const dismissedStyle = {
     opacity: 0,
@@ -84,7 +79,7 @@ function AiringNow({
   }, [])
 
   return (
-    <div className="flex flex-col items-end gap-1">
+    !isPending ? <div className="flex flex-col items-end gap-1">
       <div className="flex text-medium gap-[2px] select-none">
         Airing Now
         <motion.div 
@@ -97,7 +92,7 @@ function AiringNow({
       </div>
       <div className="relative w-full">
         {
-          airingAnime.map((a, i) => (
+          data?.data.map((a, i) => (
             <AnimatePresence>
               {
                 i === selectedIndex && <motion.div
@@ -124,6 +119,8 @@ function AiringNow({
           ))
         }
       </div>
+    </div> : <div className="h-[300px] w-full flex items-center justify-center">
+      <CircularProgressIndicator />
     </div>
   )
 }
