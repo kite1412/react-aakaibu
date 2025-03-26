@@ -10,6 +10,7 @@
   --color-on-primary: oklch(100% 0 0);
   --color-secondary: oklch(66.24% 0.1867 249.84);
   --color-cerise: oklch(59.79% 0.208 9.89);
+  --color-dark-gray: oklch(73.48% 0 0);
 
   --text-medium: 1.3rem;
 }

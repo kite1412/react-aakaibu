@@ -13,6 +13,7 @@ import { useQuery } from "@tanstack/react-query"
 import { jikanService } from "../services"
 import { AnimatePresence, easeInOut, motion } from "framer-motion"
 import CircularProgressIndicator from "../components/CircularProgressIndicator"
+import DotsIndicator from "../components/DotsIndicator"
 
 export default function HomePage() {
   const [searchValue, setSearchValue] = useState("")
@@ -58,28 +59,21 @@ function AppLogo() {
 }
 
 function AiringNow() {
+  const dataLength = 7
   const { data, isPending } = useQuery({
     queryKey: ["airingAnime"],
-    queryFn: () => jikanService.getTopAiringAnime()
+    queryFn: () => jikanService.getTopAiringAnime({
+      limit: dataLength
+    })
   })
   const [selectedIndex, setSelectedIndex] = useState(0)
   const dismissedStyle = {
     opacity: 0,
-    scale: 0,
-    marginTop: "50px"
+    scale: 0
   }
 
-  useEffect(() => {
-    let a = 0
-
-    setInterval(() => {
-      a++
-      setSelectedIndex(a)
-    }, 1000)
-  }, [])
-
   return (
-    !isPending ? <div className="flex flex-col items-end gap-1">
+    !isPending ? <div className="flex relative flex-col items-end gap-1">
       <div className="flex text-medium gap-[2px] select-none">
         Airing Now
         <motion.div 
@@ -90,35 +84,38 @@ function AiringNow() {
           <Radio className="size-full" />
         </motion.div>
       </div>
-      <div className="relative w-full">
+      <AnimatePresence mode="wait">
         {
-          data?.data.map((a, i) => (
-            <AnimatePresence>
-              {
-                i === selectedIndex && <motion.div
-                  className="absolute w-full flex justify-end"
-                  exit={dismissedStyle}
-                  initial={dismissedStyle}
-                  animate={{
-                    scale: 1,
-                    opacity: 1,
-                    marginTop: "0px"
-                  }}
-                  transition={{
-                    duration: 0.5,
-                    ease: easeInOut
-                  }}
-                >
-                  <AiringAnime
-                    anime={a}
-                    onAddToList={aa => {}}
-                  />
-                </motion.div>
-              }
-            </AnimatePresence>
-          ))
+          data?.data[selectedIndex] && (
+            <motion.div
+              key={selectedIndex}
+              className="w-full flex justify-end"
+              exit={dismissedStyle}
+              initial={dismissedStyle}
+              animate={{
+                scale: 1,
+                opacity: 1
+              }}
+              transition={{
+                duration: 0.3,
+                ease: easeInOut
+              }}
+            >
+              <AiringAnime
+                anime={data?.data[selectedIndex]}
+                onAddToList={aa => {}}
+              />
+            </motion.div>
+          )
         }
-      </div>
+      </AnimatePresence>
+      <DotsIndicator 
+        selectedIndex={selectedIndex}
+        onIndexChange={i => setSelectedIndex(i)}
+        dotsCount={dataLength}
+        dotsGap={8}
+        className="mx-auto"
+      />
     </div> : <div className="h-[300px] w-full flex items-center justify-center">
       <CircularProgressIndicator />
     </div>

@@ -1,9 +1,9 @@
 import axios from "axios"
 
 export default abstract class Client {
-  async get<T>(url: string): Promise<T> {
+  protected async get<T>(url: string, params?: any): Promise<T> {
     const res = await axios
-      .get(url)
+      .get(url, { params: params })
       .catch(e => {
         if (e.response) {
           const status = e.response.status
