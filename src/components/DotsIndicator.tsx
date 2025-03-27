@@ -25,13 +25,16 @@ export default function DotsIndicator({
     width: `${dotDiameter * 2.2}px`
   }
   const iconClassName = "cursor-pointer hover:opacity-80"
+  const previousEnabled = selectedIndex > 0
+  const nextEnabled = selectedIndex < dotsCount - 1
+  const actionDisabledClassName = (disabled: boolean) => disabled && "text-primary/50"
 
   return (
     <div className={`flex items-center text-primary select-none gap-1 ${className}`}>
       <ChevronLeft
-        className={iconClassName}
+        className={`${iconClassName} ${actionDisabledClassName(!previousEnabled)}`}
         onClick={() => {
-          if (dotsCount > 0) onIndexChange(selectedIndex - 1)
+          if (previousEnabled) onIndexChange(selectedIndex - 1)
         }}
         style={iconStyle}
       />
@@ -57,9 +60,9 @@ export default function DotsIndicator({
         }
       </div>
       <ChevronRight
-        className={iconClassName}
+        className={`${iconClassName} ${actionDisabledClassName(!nextEnabled)}`}
         onClick={() => {
-          if (selectedIndex < dotsCount - 1) onIndexChange(selectedIndex + 1)
+          if (nextEnabled) onIndexChange(selectedIndex + 1)
         }}
         style={iconStyle}
       />

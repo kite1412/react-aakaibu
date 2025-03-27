@@ -1,19 +1,19 @@
-import { useEffect, useState } from "react"
+import { useQuery } from "@tanstack/react-query"
+import { AnimatePresence, easeInOut, motion } from "framer-motion"
+import { useState } from "react"
 import Languages from "../assets/languages.svg?react"
+import ListPlus from "../assets/list-plus.svg?react"
+import Radio from "../assets/radio.svg?react"
+import CircularProgressIndicator from "../components/CircularProgressIndicator"
+import DotsIndicator from "../components/DotsIndicator"
+import RoundedButton from "../components/RoundedButton"
 import SearchBar from "../components/SearchBar"
 import PageLayout from "../layouts/PageLayout"
 import JikanAnime from "../models/jikan/JikanAnime"
+import JikanImageSize from "../models/jikan/JikanImageSize"
+import { jikanService } from "../services"
 import { getJpgImage, getPrefferedTitleString } from "../services/jikan/utils/responseUtils"
 import { trimString } from "../utils/strings"
-import RoundedButton from "../components/RoundedButton"
-import ListPlus from "../assets/list-plus.svg?react"
-import JikanImageSize from "../models/jikan/JikanImageSize"
-import Radio from "../assets/radio.svg?react"
-import { useQuery } from "@tanstack/react-query"
-import { jikanService } from "../services"
-import { AnimatePresence, easeInOut, motion } from "framer-motion"
-import CircularProgressIndicator from "../components/CircularProgressIndicator"
-import DotsIndicator from "../components/DotsIndicator"
 
 export default function HomePage() {
   const [searchValue, setSearchValue] = useState("")
@@ -126,16 +126,16 @@ function AiringAnime({
   anime,
   onAddToList
 }: {
-  anime: JikanAnime,
+  anime: JikanAnime
   onAddToList: (anime: JikanAnime) => void
 }) {
   return (
     <div className="flex gap-4 items-center cursor-pointer">
-      <div className="flex flex-col gap-4 items-end text-end ps-10 flex-3/4">
+      <div className="flex flex-col gap-4 items-end text-end ps-10 flex-3/4 overflow-ellipsis">
         <h2 className="font-bold ps-10">
           {trimString(getPrefferedTitleString(anime.titles), 50)}
         </h2>
-        <p>
+        <p className="line-clamp-3">
           {trimString(anime.synopsis ?? "", 150)}
         </p>
         <span className="text-white">
@@ -145,7 +145,7 @@ function AiringAnime({
               : ""
           } 
           {
-            "| " + (anime.studios[0]?.name ?? "")
+            " | " + (anime.studios[0]?.name ?? "")
           }
         </span>
         <RoundedButton 
@@ -155,11 +155,28 @@ function AiringAnime({
           horizontalPadding={15}
         />
       </div>
-      <div className="flex-1/4 aspect-[3/4] rounded-[16px] overflow-hidden select-none">
+      <div className="flex-1/4 w-full aspect-[3/4] min-w-[225px] rounded-[16px] overflow-hidden select-none">
         <img
           src={getJpgImage(anime.images, JikanImageSize.Large)}
           className="size-full duration-400 transition-transform hover:scale-110 object-fill"
         />
+      </div>
+    </div>
+  )
+}
+
+function AnimeLeaderboard({
+  category,
+  animeList
+}: {
+  category: string
+  animeList: Array<JikanAnime>
+}) {
+  return (
+    <div className="flex flex-col gap-6">
+      <b>{category}</b>
+      <div className="flex flex-col gap-4 ps-2">
+
       </div>
     </div>
   )
