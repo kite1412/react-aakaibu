@@ -16,8 +16,8 @@ export default function App() {
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
           <div className="bg-background h-screen w-screen text-content-color overflow-hidden">
-            <div className="flex size-full py-6">
-              <div className={`${showNavBar ? "ps-8" : "ps-6"}`}>
+            <div className="flex size-full">
+              <div className={`${showNavBar ? "ps-8" : "ps-6"} py-6`}>
                 <SideNavBar 
                   visible={showNavBar}
                   onVisibleChange={setShowNavBar}
