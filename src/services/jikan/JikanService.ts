@@ -8,4 +8,6 @@ export default interface JikanService {
   getTopAiringAnime(params?: CommonMediaParams): Promise<JikanResponse<Array<JikanAnime>>>
 
   getAnimeSchedules(params?: CommonMediaParams): Promise<JikanResponse<Array<JikanAnime>>>
+
+  getTopUpcomingAnime(params: CommonMediaParams): Promise<JikanResponse<Array<JikanAnime>>>
 }

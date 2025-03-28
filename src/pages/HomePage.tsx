@@ -28,6 +28,12 @@ export default function HomePage() {
       limit: leaderboardItemsCount
     })
   })
+  const topUpcomingAnime = useQuery({
+    queryKey: ["upcomingAnime"],
+    queryFn: () => jikanService.getTopUpcomingAnime({
+      limit: leaderboardItemsCount
+    })
+  })
 
   return <PageLayout>
     <div className="flex flex-col gap-4">
@@ -46,11 +52,18 @@ export default function HomePage() {
           </div>
           <AiringNow />
         </div>
-        <div className="flex-[30%] pt-2">
+        <div className="flex-[30%] pt-2 flex flex-col gap-6">
           {
             !topAiringAnime.isPending ? <MediaLeaderboard 
               category="Top Airing Anime"
               mediaList={topAiringAnime.data?.data ?? []}
+              itemsCount={leaderboardItemsCount}
+            /> : <LeadboardLoadingIndicator itemsCount={leaderboardItemsCount} />
+          }
+          {
+            !topUpcomingAnime.isPending ? <MediaLeaderboard 
+              category="Top Upcoming Anime"
+              mediaList={topUpcomingAnime.data?.data ?? []}
               itemsCount={leaderboardItemsCount}
             /> : <LeadboardLoadingIndicator itemsCount={leaderboardItemsCount} />
           }
@@ -211,7 +224,7 @@ function MediaLeaderboard({
 }) {
   return (
     <div className="flex flex-col gap-4">
-      <b className="text-medium">{category}</b>
+      <b className="text-medium text-white">{category}</b>
       <div className="flex flex-col gap-2 ps-3">
         {
           mediaList.slice(0, itemsCount).map((m, i) => (
@@ -245,17 +258,22 @@ function MediaLeaderboard({
 
 function RankItem({
   rank,
-  media
+  media,
+  onClick
 }: {
   rank: number
   media: Media
+  onClick?: (media: Media) => void
 }) {
   return (
-    <div className="flex gap-3 cursor-pointer">
+    <div 
+      className="flex gap-3 cursor-pointer"
+      onClick={() => onClick?.(media)}
+    >
       <b className={`
         text-medium ${getRankColor(rank)}
       `}>{rank}</b>
-      <div className="flex gap-1 text-white">
+      <div className="flex gap-1">
         <img
           src={getJpgImage(media.images, JikanImageSize.Normal)}
           className="rounded-[4px] h-[80px] w-[52px]"
