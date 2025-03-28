@@ -10,3 +10,10 @@ test("request auth code", async () => {
 
   expect(res).toBeDefined()
 })
+
+test("exchange token", async () => {
+  console.log(`portt: ${import.meta.env.VITE_PORT}`)
+  const res = await authService.token(import.meta.env.VITE_MAL_AUTH_CODE)
+
+  expect(res).toBeDefined()
+})

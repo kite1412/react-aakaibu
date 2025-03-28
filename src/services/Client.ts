@@ -35,7 +35,7 @@ export default abstract class Client {
   private logAndThrowError(url: string, error: any): never {
     if (error.response) {
       const status = error.response.status
-      const errorMessage = `Error ${url} \n status: ${status} \n message: ${error.response.data}`
+      const errorMessage = `Error ${url} \n status: ${status} \n message: ${JSON.stringify(error.response.data)}`
       console.error(errorMessage)
     } else {
       console.error(`Network error on attempt: ${url}`)

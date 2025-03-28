@@ -13,5 +13,8 @@ export default defineConfig({
   server: {
     port: 5100,
     strictPort: true
+  },
+  define: {
+    "import.meta.env.VITE_PORT": "5100"
   }
 })

@@ -4,5 +4,5 @@ export default interface MalAuthService {
   // ignore response
   authCode(): Promise<any>
 
-  token(): Promise<TokenResponse>
+  token(code: string): Promise<TokenResponse>
 }
