@@ -9,5 +9,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
     svgr()
-  ]
+  ],
+  server: {
+    port: 5100,
+    strictPort: true
+  }
 })
