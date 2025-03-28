@@ -11,6 +11,9 @@
   --color-secondary: oklch(66.24% 0.1867 249.84);
   --color-cerise: oklch(59.79% 0.208 9.89);
   --color-dark-gray: oklch(73.48% 0 0);
+  --color-gold: oklch(84.03% 0.1724 84.08);
+  --color-silver: oklch(80.78% 0 0);
+  --color-bronze: oklch(66.61% 0.1315 61.29);
 
   --text-medium: 1.3rem;
 }
