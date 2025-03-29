@@ -11,6 +11,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import { AnimatePresence, motion } from "framer-motion"
 import AlignLeft from "../assets/align-left.svg?react"
+import { malAuthService } from "../services"
 
 interface Destination {
   icon: JSX.Element
@@ -102,6 +103,9 @@ export default function SideNavBar({
               {
                 !isAuthenticated && <SignIn 
                   className={`text-primary ${iconButton}`}
+                  onClick={() => {
+                    window.location.href = malAuthService.authCodeUrl()
+                  }}
                 />
               }
             </div>
