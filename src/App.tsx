@@ -1,10 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import SideNavBar from "./components/SideNavBar"
 import { AuthProvider } from "./context/AuthContext"
-import { HOME_PATH } from "./constants/paths"
+import { AUTH_CALLBACK_PATH, HOME_PATH } from "./constants/paths"
 import HomePage from "./pages/HomePage"
 import { useState } from "react"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import AuthCallbackPage from "./pages/AuthCallbackPage"
 
 const queryClient = new QueryClient()
 
@@ -29,6 +30,10 @@ export default function App() {
                   index
                   path={HOME_PATH}
                   element={<HomePage />}
+                />
+                <Route 
+                  path={AUTH_CALLBACK_PATH}
+                  element={<AuthCallbackPage />}
                 />
               </Routes>
             </div>

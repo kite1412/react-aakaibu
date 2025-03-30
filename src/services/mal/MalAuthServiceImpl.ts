@@ -23,10 +23,13 @@ export default class MalAuthServiceImpl extends Client implements MalAuthService
    *  making a request using this method.
    */
   async authCode(): Promise<any> {
-    return this.get(MAL_AUTH_CODE_EXCHANGE, {
-      client_id: import.meta.env.VITE_MAL_CLIENT_ID,
-      response_type: "code",
-      code_challenge: import.meta.env.VITE_STATIC_PKCE
+    return this.get({
+      url: MAL_AUTH_CODE_EXCHANGE,
+      params: {
+        client_id: import.meta.env.VITE_MAL_CLIENT_ID,
+        response_type: "code",
+        code_challenge: import.meta.env.VITE_STATIC_PKCE
+      }
     })
   }
 
@@ -37,7 +40,7 @@ export default class MalAuthServiceImpl extends Client implements MalAuthService
     data.append("grant_type", "authorization_code")
     data.append("code", code)
     data.append("code_verifier", import.meta.env.VITE_STATIC_PKCE)
-    data.append("redirect_uri", `http://localhost:${import.meta.env.VITE_PORT}`)
+    data.append("redirect_uri", `http://localhost:${import.meta.env.VITE_PORT}/auth-callback`)
 
     return this.post(MAL_AUTH_TOKEN_EXCHANGE, {
       contentType: ContentType.FORM_URL_ENCODED,

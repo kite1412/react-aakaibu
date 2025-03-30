@@ -3,11 +3,13 @@ import { createContext } from "react"
 import { JSX } from "react"
 
 interface AuthContextProps {
-  isAuthenticated: boolean
+  isAuthenticated: boolean,
+  setIsAuthenticated: (val: boolean) => void
 }
 
 const AuthContext = createContext<AuthContextProps>({
-  isAuthenticated: false
+  isAuthenticated: false,
+  setIsAuthenticated: () => {}
 })
 
 interface AuthProviderProps {
@@ -20,7 +22,8 @@ export function AuthProvider({ children }: AuthProviderProps) {
   return (
     <AuthContext.Provider
       value={{
-        isAuthenticated: isAuthenticated
+        isAuthenticated: isAuthenticated,
+        setIsAuthenticated: setIsAuthenticated
       }}
     >
       {children}

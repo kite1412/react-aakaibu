@@ -11,7 +11,8 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/AuthContext"
 import { AnimatePresence, motion } from "framer-motion"
 import AlignLeft from "../assets/align-left.svg?react"
-import { malAuthService } from "../services"
+import { malAuthService, malService } from "../services"
+import { useQuery } from "@tanstack/react-query"
 
 interface Destination {
   icon: JSX.Element
@@ -69,6 +70,11 @@ export default function SideNavBar({
     opacity: 0,
     marginLeft: "-50px"
   }
+  const { data, isPending } = useQuery({
+    queryKey: ["userInfo", isAuthenticated],
+    enabled: isAuthenticated,
+    queryFn: () => malService.getUserInfo()
+  })
 
   return (
     <>
@@ -111,8 +117,11 @@ export default function SideNavBar({
             </div>
             <div className="flex flex-col gap-12 items-center">
               {
-                isAuthenticated && <div className="flex flex-col gap-8">
-                  { /* Profile pic */ }
+                isAuthenticated && !isPending && data && <div className="flex flex-col gap-8 items-center">
+                  <img 
+                    src={data.picture}
+                    className="size-[40px] rounded-full"
+                  />
                   <SignOut className={`text-cerise ${iconButton}`} />
                 </div>
               }

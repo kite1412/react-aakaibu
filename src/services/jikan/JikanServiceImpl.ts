@@ -7,7 +7,10 @@ import CommonMediaParams from "./query-params/CommonMediaParams"
 
 export default class JikanServiceImpl extends Client implements JikanService {
   async getTopAnime(params?: CommonMediaParams): Promise<JikanResponse<Array<JikanAnime>>> {
-    return this.get(JIKAN_TOP_ANIME, params)
+    return this.get({
+      url: JIKAN_TOP_ANIME,
+      params: params
+    })
   }
 
   async getTopAiringAnime(params?: CommonMediaParams): Promise<JikanResponse<Array<JikanAnime>>> {
@@ -20,7 +23,10 @@ export default class JikanServiceImpl extends Client implements JikanService {
   }
 
   async getAnimeSchedules(params?: CommonMediaParams): Promise<JikanResponse<Array<JikanAnime>>> {
-    return this.get(JIKAN_ANIME_SCHEDULES, params)
+    return this.get({
+      url: JIKAN_ANIME_SCHEDULES,
+      params: params
+    })
   }
 
   async getTopUpcomingAnime(params: CommonMediaParams): Promise<JikanResponse<Array<JikanAnime>>> {

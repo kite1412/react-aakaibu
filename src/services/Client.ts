@@ -1,9 +1,21 @@
 import axios, { AxiosResponse } from "axios"
 
 export default abstract class Client {
-  protected async get<T>(url: string, params?: any): Promise<T> {
+  protected async get<T>({
+    url,
+    params, 
+    bearerToken
+  }: GetRequest): Promise<T> {
     const res: AxiosResponse<T, any> = await axios
-      .get<T>(url, { params: params })
+      .get<T>(
+        url,
+        {
+          params: params,
+          headers: {
+            ...(bearerToken && { Authorization: bearerToken })
+          }
+        }
+      )
       .catch(e => {
         this.logAndThrowError(url, e)
       })
@@ -20,7 +32,7 @@ export default abstract class Client {
         {
           headers: {
             "Content-Type": request.contentType,
-            ...(request.bearerToken && { Authorization: `Bearer ${request.bearerToken}` }) 
+            ...(request.bearerToken && { Authorization: `Bearer ${request.bearerToken}` })
           }
         }
       )
@@ -54,7 +66,13 @@ export enum ContentType {
 }
 
 interface PostRequest {
-  contentType: ContentType,
-  body: any,
+  contentType: ContentType
+  body: any
+  bearerToken?: string
+}
+
+interface GetRequest {
+  url: string
+  params?: any
   bearerToken?: string
 }
