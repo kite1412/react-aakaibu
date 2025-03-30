@@ -2,16 +2,20 @@
   "name": "mal-models",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "devDependencies": {
     "typescript": "^5.8.2"
+  },
+  "dependencies": {
+    "mal-models": "file:"
   }
 }
