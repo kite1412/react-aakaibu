@@ -1,0 +1,32 @@
+{
+  "name": "mal-proxy",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "node dist/server.js",
+    "dev": "tsx watch --include src/**/*.ts src/server.ts",
+    "lint": "npx eslint ./ --fix",
+    "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mal-proxy": "file:"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.23.0",
+    "@types/express": "^5.0.1",
+    "@types/node": "^22.13.14",
+    "eslint": "^9.23.0",
+    "prettier": "^3.5.3",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.2",
+    "typescript-eslint": "^8.28.0"
+  }
+}
