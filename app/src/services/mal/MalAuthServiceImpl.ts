@@ -1,9 +1,10 @@
+import { AxiosHttpClient } from "http-client"
 import TokenResponse from "../../models/mal/TokenResponse"
-import Client, { ContentType } from "../Client"
+import { ContentType } from "http-client"
 import MalAuthService from "./MalAuthService"
 import { MAL_AUTH_CODE_EXCHANGE, MAL_AUTH_TOKEN_EXCHANGE } from "./malPaths"
 
-export default class MalAuthServiceImpl extends Client implements MalAuthService {
+export default class MalAuthServiceImpl extends AxiosHttpClient implements MalAuthService {
   authCodeUrl(): string {
     const mapParams = new Map<string, string>([
       ["client_id", import.meta.env.VITE_MAL_CLIENT_ID],
@@ -22,7 +23,7 @@ export default class MalAuthServiceImpl extends Client implements MalAuthService
    * @deprecated Use {@link authCodeUrl} for redirection instead of 
    *  making a request using this method.
    */
-  async authCode(): Promise<any> {
+  async authCode(): Promise<unknown> {
     return this.get({
       url: MAL_AUTH_CODE_EXCHANGE,
       params: {

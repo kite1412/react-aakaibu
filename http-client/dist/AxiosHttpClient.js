@@ -14,7 +14,7 @@ export class AxiosHttpClient {
             const res = yield axios
                 .get(url, {
                 params: params,
-                headers: Object.assign({}, (bearerToken && { Authorization: bearerToken }))
+                headers: Object.assign({}, (bearerToken && { Authorization: `Bearer ${bearerToken}` }))
             })
                 .catch(e => {
                 this.logAndThrowError(url, e);

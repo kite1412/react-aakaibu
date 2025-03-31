@@ -12,7 +12,7 @@ export abstract class AxiosHttpClient {
         {
           params: params,
           headers: {
-            ...(bearerToken && { Authorization: bearerToken })
+            ...(bearerToken && { Authorization: `Bearer ${bearerToken}` })
           }
         }
       )

@@ -1,10 +1,10 @@
+import { AxiosHttpClient } from "http-client"
 import { TOKEN } from "../../constants/storageKeys"
 import UserInfo from "../../models/mal/UserInfo"
-import Client from "../Client"
 import { MAL_USER_INFO } from "./malPaths"
 import MalService from "./MalService"
 
-export default class MalServiceImpl extends Client implements MalService {
+export default class MalServiceImpl extends AxiosHttpClient implements MalService {
   getUserInfo(): Promise<UserInfo> | null {
     const token = localStorage.getItem(TOKEN)
 
