@@ -1,0 +1,1 @@
+{"version":3,"file":"UserAnimeListStatus.d.ts","sourceRoot":"","sources":["../src/UserAnimeListStatus.ts"],"names":[],"mappings":"AAAA,OAAO,cAAc,MAAM,kBAAkB,CAAC;AAE9C,MAAM,CAAC,OAAO,WAAW,mBAAoB,SAAQ,cAAc;IACjE,oBAAoB,EAAE,MAAM,CAAA;IAC5B,mBAAmB,EAAE,MAAM,CAAA;IAC3B,aAAa,EAAE,MAAM,CAAA;IACrB,aAAa,EAAE,OAAO,CAAA;CACvB"}
