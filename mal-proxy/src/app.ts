@@ -1,14 +1,20 @@
 import express, { NextFunction, Request, Response } from "express"
-import authMiddleware from "./middlewares/auth"
-import HttpError from "./errors/HttpError"
 import { USERS_ROUTE } from "./constants/endpoints"
+import HttpError from "./errors/HttpError"
+import authMiddleware from "./middlewares/auth"
 import userRouter from "./routes/userRoutes"
+import cors from "cors"
 
 const app = express()
 
+app.use(cors({
+  origin: [
+    "http://localhost:5100"
+  ]
+}))
 app.use(express.json())
 
-app.use(authMiddleware.checkAuthHeader)
+app.use(authMiddleware.checkJwt)
 app.use(USERS_ROUTE, userRouter)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {

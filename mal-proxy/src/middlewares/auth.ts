@@ -2,7 +2,7 @@ import { NextFunction, Request, RequestHandler, Response } from "express"
 import { Buffer } from "buffer"
 import HttpError from "../errors/HttpError"
 
-const checkAuthHeader: RequestHandler = (
+const checkJwt: RequestHandler = (
   req: Request,
   res: Response,
   next: NextFunction
@@ -40,4 +40,4 @@ const checkAuthHeader: RequestHandler = (
   next()
 }
 
-export default { checkAuthHeader }
+export default { checkJwt }
