@@ -7,7 +7,7 @@ const getUserInfo: RequestHandler = async (req: Request, res: Response) => {
     const r = await userService.getUserInfo(
       extractJwt(req.headers.authorization!)
     )
-  
+
     res.status(200).send(r)
   } catch (e) {
     console.log(e)

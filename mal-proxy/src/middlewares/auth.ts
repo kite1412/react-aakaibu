@@ -20,13 +20,14 @@ const checkJwt: RequestHandler = (
   const content = authHeader.split(" ")
 
   if (content.length !== 2 || !content[0].startsWith("Bearer"))
-    throwError(`Authentication header's content must be in the following format: "Bearer <jwt>"`)
+    throwError(
+      `Authentication header's content must be in the following format: "Bearer <jwt>"`
+    )
 
   const token = content[1]
   const parts = token.split(".")
 
-  if (parts.length !== 3)
-    throwError("Invalid JWT")
+  if (parts.length !== 3) throwError("Invalid JWT")
 
   const payload = JSON.parse(
     Buffer.from(parts[1], "base64url").toString("utf-8")
@@ -34,8 +35,7 @@ const checkJwt: RequestHandler = (
   const exp: number | undefined = payload.exp
 
   // early prevention of sending expired token to actual request
-  if (exp && Math.floor((Date.now() / 1000)) > exp)
-    throwError("Token expired")
+  if (exp && Math.floor(Date.now() / 1000) > exp) throwError("Token expired")
 
   next()
 }

@@ -1,6 +1,6 @@
-import { expect, test } from "vitest";
+import { expect, test } from "vitest"
 import dotenv from "dotenv"
-import AuthServiceImpl from "../services/auth/AuthServiceImpl";
+import AuthServiceImpl from "../services/auth/AuthServiceImpl"
 
 dotenv.config()
 
@@ -23,7 +23,7 @@ test("refresh access token", async () => {
   const res = await service.refreshAccessToken(
     process.env.REFRESH_TOKEN ?? "",
     process.env.CLIENT_ID ?? "",
-    process.env.CLIENT_SECRET ?? "",
+    process.env.CLIENT_SECRET ?? ""
   )
 
   expect(res).toBeDefined()

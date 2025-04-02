@@ -1,5 +1,5 @@
 import { test, expect } from "vitest"
-import AnimeServiceImpl from "../services/anime/AnimeServiceImpl";
+import AnimeServiceImpl from "../services/anime/AnimeServiceImpl"
 import dotenv from "dotenv"
 
 dotenv.config()
