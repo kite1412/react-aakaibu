@@ -1,4 +1,4 @@
-import { useQuery, useQueryClient } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 import { AnimatePresence, easeInOut, motion } from "framer-motion"
 import { useState } from "react"
 import Languages from "../assets/languages.svg?react"

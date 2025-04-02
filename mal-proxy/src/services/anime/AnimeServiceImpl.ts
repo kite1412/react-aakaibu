@@ -1,10 +1,10 @@
 import { AxiosHttpClient } from "http-client"
 import AnimeService from "./AnimeService"
-import Anime from "mal-models/dist/Anime"
-import ListResponse from "mal-models/dist/ListResponse"
+import { Anime } from "mal-models"
+import { ListResponse } from "mal-models"
 import { MAL_USER_ANIME_LIST } from "../../constants/malPaths"
-import UserMediaList from "mal-models/dist/UserMediaList"
-import UserAnimeListStatus from "mal-models/dist/UserAnimeListStatus"
+import { UserMediaList } from "mal-models"
+import { UserAnimeListStatus } from "mal-models"
 
 export default class AnimeServiceImpl
   extends AxiosHttpClient

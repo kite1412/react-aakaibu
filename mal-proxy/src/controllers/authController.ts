@@ -13,7 +13,7 @@ function isValidExchangeTokenBody(body: any): body is ExchangeTokenBody {
     typeof body.redirect_uri === "string" &&
     typeof body.code_verifier === "string"
   )
-} 
+}
 
 const exchangeToken: RequestHandler = async (req: Request, res: Response) => {
   try {
@@ -24,13 +24,8 @@ const exchangeToken: RequestHandler = async (req: Request, res: Response) => {
       return
     }
 
-    const {
-      code,
-      client_id,
-      client_secret,
-      redirect_uri,
-      code_verifier
-    } = req.body
+    const { code, client_id, client_secret, redirect_uri, code_verifier } =
+      req.body
     const r = await authService.exchangeToken(
       code,
       client_id,
@@ -44,7 +39,7 @@ const exchangeToken: RequestHandler = async (req: Request, res: Response) => {
     console.error(err)
     if (err instanceof Error)
       res.status(400).send({
-        error: err.message 
+        error: err.message
       })
     else
       res.status(400).send({

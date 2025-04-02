@@ -1,5 +1,5 @@
-import UserListStatus from "./UserListStatus";
-export default interface Media<T extends UserListStatus> {
+import { UserListStatus } from "./UserListStatus";
+export interface Media<T extends UserListStatus> {
     id: number;
     title: string;
     main_picture: MainPicture | null;

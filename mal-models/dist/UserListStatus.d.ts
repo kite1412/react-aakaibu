@@ -1,4 +1,4 @@
-export default interface UserListStatus {
+export interface UserListStatus {
     status: string;
     score: number;
     start_date?: string | null;

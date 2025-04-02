@@ -1,6 +1,6 @@
-import Media from "./Media";
-import UserAnimeListStatus from "./UserAnimeListStatus";
-export default interface Anime extends Media<UserAnimeListStatus> {
+import { Media } from "./Media";
+import { UserAnimeListStatus } from "./UserAnimeListStatus";
+export interface Anime extends Media<UserAnimeListStatus> {
     start_season?: StartSeason;
     broadcast?: Broadcast | null;
     source?: string | null;

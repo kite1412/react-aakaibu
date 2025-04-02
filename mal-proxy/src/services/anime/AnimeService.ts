@@ -1,7 +1,7 @@
-import Anime from "mal-models/dist/Anime"
-import ListResponse from "mal-models/dist/ListResponse"
-import UserMediaList from "mal-models/dist/MediaAnimeList"
-import UserAnimeListStatus from "mal-models/dist/UserAnimeListStatus"
+import { Anime } from "mal-models"
+import { ListResponse } from "mal-models"
+import { UserMediaList } from "mal-models"
+import { UserAnimeListStatus } from "mal-models"
 
 export default interface AnimeService {
   getUserAnimeList(

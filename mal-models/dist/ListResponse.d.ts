@@ -1,5 +1,5 @@
-import Paging from "./Paging";
-export default interface ListResponse<T> {
+import { Paging } from "./Paging";
+export interface ListResponse<T> {
     data: Array<T>;
     paging: Paging;
 }

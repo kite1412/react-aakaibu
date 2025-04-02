@@ -1,4 +1,4 @@
-export default interface Paging {
+export interface Paging {
   previous: string
   next: string
 }
