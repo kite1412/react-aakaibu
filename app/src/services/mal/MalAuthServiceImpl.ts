@@ -43,7 +43,8 @@ export default class MalAuthServiceImpl extends AxiosHttpClient implements MalAu
     data.append("code_verifier", import.meta.env.VITE_STATIC_PKCE)
     data.append("redirect_uri", `http://localhost:${import.meta.env.VITE_PORT}/auth-callback`)
 
-    return this.post(MAL_AUTH_TOKEN_EXCHANGE, {
+    return this.post({
+      url: MAL_AUTH_TOKEN_EXCHANGE,
       contentType: ContentType.FORM_URL_ENCODED,
       body: data
     })

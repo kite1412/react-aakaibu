@@ -24,10 +24,10 @@ export abstract class AxiosHttpClient {
     return res.data
   }
 
-  protected async post<T>(url: string, request: PostRequest): Promise<T> {
+  protected async post<T>(request: PostRequest): Promise<T> {
     const res: AxiosResponse<T, unknown> = await axios
       .post<T>(
-        url, 
+        request.url, 
         request.body, 
         {
           headers: {
@@ -37,10 +37,10 @@ export abstract class AxiosHttpClient {
         }
       )
       .catch(e => {
-        this.logAndThrowError(url, e)
+        this.logAndThrowError(request.url, e)
       })
 
-      this.logSuccess(url, "Post")
+      this.logSuccess(request.url, "Post")
       return res.data
   }
 
@@ -66,6 +66,7 @@ export enum ContentType {
 }
 
 interface PostRequest {
+  url: string,
   contentType: ContentType
   body: unknown
   bearerToken?: string

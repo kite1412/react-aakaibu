@@ -23,16 +23,16 @@ export class AxiosHttpClient {
             return res.data;
         });
     }
-    post(url, request) {
+    post(request) {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield axios
-                .post(url, request.body, {
+                .post(request.url, request.body, {
                 headers: Object.assign({ "Content-Type": request.contentType }, (request.bearerToken && { Authorization: `Bearer ${request.bearerToken}` }))
             })
                 .catch(e => {
-                this.logAndThrowError(url, e);
+                this.logAndThrowError(request.url, e);
             });
-            this.logSuccess(url, "Post");
+            this.logSuccess(request.url, "Post");
             return res.data;
         });
     }
