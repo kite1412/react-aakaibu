@@ -1,7 +1,7 @@
 import UserService from "./UserService"
-import { UserInfo } from "mal-models"
-import { MAL_USER_INFO } from "../constants/malPaths"
 import { AxiosHttpClient } from "http-client"
+import { UserInfo } from "mal-models"
+import { MAL_USER_INFO } from "../../constants/malPaths"
 
 export default class UserServiceImpl
   extends AxiosHttpClient

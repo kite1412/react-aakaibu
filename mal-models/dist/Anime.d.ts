@@ -1,12 +1,12 @@
 import Media from "./Media";
 import UserAnimeListStatus from "./UserAnimeListStatus";
 export default interface Anime extends Media<UserAnimeListStatus> {
-    start_season: StartSeason;
-    broadcast: Broadcast | null;
-    source: string | null;
-    average_episode_duration: number | null;
-    rating: Rating;
-    studios: Array<Studio>;
+    start_season?: StartSeason;
+    broadcast?: Broadcast | null;
+    source?: string | null;
+    average_episode_duration?: number | null;
+    rating?: Rating;
+    studios?: Array<Studio>;
 }
 export type Season = "winter" | "spring" | "summer" | "fall";
 export type Rating = "g" | "pg" | "pg_13" | "r" | "r+" | "rx" | null;

@@ -8,7 +8,8 @@
     "start": "node dist/server.js",
     "dev": "tsx watch --include src/**/*.ts src/server.ts",
     "lint": "npx eslint ./ --fix",
-    "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
+    "prettier": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\"",
+    "test": "vitest"
   },
   "keywords": [],
   "author": "",
@@ -16,7 +17,6 @@
   "type": "module",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "http-client": "file:../http-client",
     "mal-models": "file:../mal-models",
@@ -26,11 +26,14 @@
     "@eslint/js": "^9.23.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",
+    "@types/jest": "^29.5.14",
     "@types/node": "^22.13.14",
+    "dotenv": "^16.4.7",
     "eslint": "^9.23.0",
     "prettier": "^3.5.3",
     "tsx": "^4.19.3",
     "typescript": "^5.8.2",
-    "typescript-eslint": "^8.28.0"
+    "typescript-eslint": "^8.28.0",
+    "vitest": "^3.1.1"
   }
 }
