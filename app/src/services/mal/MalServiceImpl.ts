@@ -1,18 +1,21 @@
 import { AxiosHttpClient } from "http-client"
-import { TOKEN } from "../../constants/storageKeys"
-import UserInfo from "../../models/mal/UserInfo"
-import { MAL_USER_INFO } from "./malPaths"
+import { UserInfo } from "mal-models"
+import { MAL_TOKEN } from "../../constants/storageKeys"
 import MalService from "./MalService"
+import { MAL_PROXY_USER_INFO } from "./malProxyPaths"
 
-export default class MalServiceImpl extends AxiosHttpClient implements MalService {
-  getUserInfo(): Promise<UserInfo> | null {
-    const token = localStorage.getItem(TOKEN)
+export default class MalServiceImpl
+  extends AxiosHttpClient
+  implements MalService
+{
+  async getUserInfo(): Promise<UserInfo | undefined> {
+    const token = localStorage.getItem(MAL_TOKEN)
 
-    if (token === null) return null
-    
+    if (!token) return
+
     return this.get({
-      url: MAL_USER_INFO,
-      bearerToken: JSON.parse(token).access_token
+      url: MAL_PROXY_USER_INFO,
+      bearerToken: token
     })
   }
 }

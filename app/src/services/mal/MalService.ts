@@ -1,5 +1,5 @@
-import UserInfo from "../../models/mal/UserInfo"
+import { UserInfo } from "mal-models"
 
 export default interface MalService {
-  getUserInfo(): Promise<UserInfo> | null
+  getUserInfo(): Promise<UserInfo | undefined>
 }

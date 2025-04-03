@@ -1,11 +1,11 @@
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { useState } from "react"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 import SideNavBar from "./components/SideNavBar"
-import { AuthProvider } from "./context/AuthContext"
 import { AUTH_CALLBACK_PATH, HOME_PATH } from "./constants/paths"
-import HomePage from "./pages/HomePage"
-import { useState } from "react"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { AuthProvider } from "./contexts/auth/AuthProvider"
 import AuthCallbackPage from "./pages/AuthCallbackPage"
+import HomePage from "./pages/HomePage"
 
 const queryClient = new QueryClient()
 

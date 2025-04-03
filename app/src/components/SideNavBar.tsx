@@ -8,11 +8,12 @@ import ChevronLeft from "../assets/chevron-left.svg?react"
 import SignOut from "../assets/sign-out.svg?react"
 import { ANIME_PATH, HOME_PATH, MANGA_PATH, USER_LIST_PATH } from "../constants/paths"
 import { useLocation, useNavigate } from "react-router-dom"
-import { useAuth } from "../context/AuthContext"
 import { AnimatePresence, motion } from "framer-motion"
 import AlignLeft from "../assets/align-left.svg?react"
 import { malAuthService, malService } from "../services"
 import { useQuery } from "@tanstack/react-query"
+import useAuth from "../contexts/auth/AuthContext"
+import CircularProgressIndicator from "./CircularProgressIndicator"
 
 interface Destination {
   icon: JSX.Element
@@ -75,6 +76,10 @@ export default function SideNavBar({
     enabled: isAuthenticated,
     queryFn: () => malService.getUserInfo()
   })
+  const dismissedProfileStyle = {
+    opacity: 0,
+    marginBottom: "-40px"
+  }
 
   return (
     <>
@@ -83,7 +88,7 @@ export default function SideNavBar({
           visible && <motion.div 
             className={`
               h-full w-fit bg-on-background rounded-[32px] px-5 py-8
-              flex flex-col justify-between
+              flex flex-col justify-between select-none
               ${className}
             `}
             initial={dismissedStyle}
@@ -117,13 +122,23 @@ export default function SideNavBar({
             </div>
             <div className="flex flex-col gap-12 items-center">
               {
-                isAuthenticated && !isPending && data && <div className="flex flex-col gap-8 items-center">
+                isAuthenticated ? !isPending && data ? <motion.div 
+                  className="flex flex-col gap-8 items-center"
+                  initial={dismissedProfileStyle}
+                  exit={dismissedProfileStyle}
+                  animate={{
+                    opacity: 1,
+                    marginBottom: "0px"
+                  }}
+                >
                   <img 
                     src={data.picture}
                     className="size-[40px] rounded-full"
                   />
-                  <SignOut className={`text-cerise ${iconButton}`} />
-                </div>
+                  <SignOut className={`text-cerise ml-[8px] ${iconButton}`} />
+                </motion.div> : <CircularProgressIndicator 
+                  size={30}
+                /> : <></>
               }
               <ChevronLeft 
                 className={`${iconButton} rounded-full bg-surface p-[2px]`}

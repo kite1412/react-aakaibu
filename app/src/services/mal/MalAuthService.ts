@@ -1,10 +1,7 @@
-import TokenResponse from "../../models/mal/TokenResponse"
+import { TokenResponse } from "mal-models"
 
 export default interface MalAuthService {
   authCodeUrl(): string
-
-  // ignore response
-  authCode(): Promise<unknown>
 
   token(code: string): Promise<TokenResponse>
 }

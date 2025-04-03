@@ -1,9 +1,9 @@
-import { Navigate, useNavigate, useSearchParams } from "react-router-dom"
-import PageLayout from "../layouts/PageLayout"
 import { useEffect } from "react"
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom"
+import { MAL_TOKEN, MAL_REFRESH_TOKEN } from "../constants/storageKeys"
+import useAuth from "../contexts/auth/AuthContext"
+import PageLayout from "../layouts/PageLayout"
 import { malAuthService } from "../services"
-import { useAuth } from "../context/AuthContext"
-import { TOKEN } from "../constants/storageKeys"
 
 export default function AuthCallbackPage() {
   const [searchParams] = useSearchParams()
@@ -16,7 +16,8 @@ export default function AuthCallbackPage() {
       const exchangeToken = async () => {
         try {
           const res = await malAuthService.token(authCode)
-          localStorage.setItem(TOKEN, JSON.stringify(res))
+          localStorage.setItem(MAL_TOKEN, res.access_token)
+          localStorage.setItem(MAL_REFRESH_TOKEN, res.refresh_token)
           setIsAuthenticated(true)
         } catch (e) {
           console.error(`Fail to authenticate: ${e}`)
@@ -27,7 +28,8 @@ export default function AuthCallbackPage() {
 
       exchangeToken()
     }
-  }, [])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [authCode])
 
   return (
     authCode === null ? <Navigate to={"/"} /> : <PageLayout>
