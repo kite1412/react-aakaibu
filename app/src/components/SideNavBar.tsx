@@ -87,7 +87,7 @@ export default function SideNavBar({
         {
           visible && <motion.div 
             className={`
-              h-full w-fit bg-on-background rounded-[32px] px-5 py-8
+              h-full w-fit bg-on-background rounded-full px-5 py-8
               flex flex-col justify-between select-none
               ${className}
             `}

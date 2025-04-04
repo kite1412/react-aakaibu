@@ -1,10 +1,11 @@
 import express, { NextFunction, Request, Response } from "express"
-import { AUTH_ROUTE, USERS_ROUTE } from "./constants/endpoints"
+import { ANIME_ROUTE, AUTH_ROUTE, USERS_ROUTE } from "./constants/endpoints"
 import HttpError from "./errors/HttpError"
 import authMiddleware from "./middlewares/auth"
 import userRouter from "./routes/userRoutes"
 import cors from "cors"
 import authRouter from "./routes/authRoutes"
+import animeRouter from "./routes/animeRoutes"
 
 const app = express()
 
@@ -19,6 +20,7 @@ app.use(express.urlencoded())
 app.use(AUTH_ROUTE, authRouter)
 app.use(authMiddleware.checkJwt)
 app.use(USERS_ROUTE, userRouter)
+app.use(ANIME_ROUTE, animeRouter)
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
   if (err instanceof HttpError) {

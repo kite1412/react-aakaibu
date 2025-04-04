@@ -10,7 +10,7 @@ const getUserInfo: RequestHandler = async (req: Request, res: Response) => {
 
     res.status(200).send(r)
   } catch (e) {
-    console.log(e)
+    console.error(e)
     res.status(400).send(e)
   }
 }
