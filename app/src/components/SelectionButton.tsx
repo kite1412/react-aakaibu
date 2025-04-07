@@ -1,7 +1,7 @@
 interface SelectionButtonProps {
   action: string
   selected: boolean
-  onClick: (action: string) => void
+  onClick: (selected: boolean) => void
   verticalPadding?: number
   horizontalPadding?: number
   className?: string
@@ -31,7 +31,7 @@ export default function SelectionButton({
         paddingRight: `${horizontalPadding}px`,
         paddingLeft: `${horizontalPadding}px`
       }}
-      onClick={() => onClick(action)}
+      onClick={() => onClick(!selected)}
     >
       {action}
     </div>

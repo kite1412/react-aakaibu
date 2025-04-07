@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { AnimatePresence, easeInOut, motion } from "framer-motion"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Languages from "../assets/languages.svg?react"
 import ListPlus from "../assets/list-plus.svg?react"
 import Radio from "../assets/radio.svg?react"
@@ -8,19 +8,20 @@ import RightArrow from "../assets/right-arrow.svg?react"
 import Star from "../assets/star.svg?react"
 import CircularProgressIndicator from "../components/CircularProgressIndicator"
 import DotsIndicator from "../components/DotsIndicator"
-import MediaCard from "../components/MediaCard"
+import MediaCards from "../components/MediaCards"
 import RoundedButton from "../components/RoundedButton"
 import SearchBar from "../components/SearchBar"
+import SelectionButton from "../components/SelectionButton"
 import PageLayout from "../layouts/PageLayout"
-import JikanAnime, { toMedia } from "../models/jikan/JikanAnime"
+import JikanAnime, { jikanAnimeToMedia } from "../models/jikan/JikanAnime"
 import JikanImageSize from "../models/jikan/JikanImageSize"
 import JikanMedia from "../models/jikan/JikanMedia"
 import { jikanService } from "../services"
 import { getJpgImage, getPrefferedTitleString } from "../services/jikan/utils/responseUtils"
 import { formatNumber } from "../utils/numbers"
 import { trimString } from "../utils/strings"
-import MediaCards from "../components/MediaCards"
-import SelectionButton from "../components/SelectionButton"
+import { convertJstClockToLocal, getDayNumber } from "../utils/dates"
+import CalendarClock from "../assets/calendar-clock.svg?react"
 
 export default function HomePage() {
   const [searchValue, setSearchValue] = useState("")
@@ -329,19 +330,19 @@ const days = [
 function AnimeSchedule() {
   const [day, setDay] = useState(days[0][1])
   const { data, isPending } = useQuery({
-    queryKey: [day],
+    queryKey: ["animeSchedule", day],
     queryFn: async () => {
       const res = await jikanService.getAnimeSchedules({
         filter: day
       })
       return res
     } 
-  }) 
-  
+  })
+
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 w-full">
       <div className="flex flex-col gap-2">
-        <div className="font-bold text-medium">Schedule</div>
+        <div className="font-bold text-medium">Anime Schedule</div>
         <div className="flex gap-2">
           {
             days.map(d => {
@@ -349,16 +350,42 @@ function AnimeSchedule() {
               return <SelectionButton 
                 action={abr}
                 selected={query === day}
-                onClick={d => setDay(query)}
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                onClick={_ => setDay(query)}
               />
             })
           }
         </div>
       </div>
-      <MediaCards 
-        mediaList={data?.data.map(a => toMedia(a)) ?? []}
-        onClick={m => {}}
-      />
+      {
+        !isPending ? <MediaCards 
+          mediaList={data?.data.map(a => jikanAnimeToMedia(a)) ?? []}
+          onClick={m => {}}
+          top={m => {
+            const broadcast = data?.data.find(a => a.mal_id === m.id)?.broadcast
+            const [airDate, clock] = convertJstClockToLocal(
+              broadcast?.time ?? "",
+              getDayNumber(broadcast?.day?.slice(0, -1) ?? "")
+            )
+
+            return <div className="flex items-center gap-2">
+              <CalendarClock
+                className="size-[1.2rem]"
+              />
+              <span>
+                <span className={`
+                  ${airDate.toLowerCase() !== day && "text-cerise"}  
+                `}>
+                  {airDate}
+                </span>
+                {" " + clock}
+              </span>
+            </div>
+          }}
+        /> : <div className="w-full flex justify-center">
+          <CircularProgressIndicator />
+        </div>
+      }
     </div>
   )
 }

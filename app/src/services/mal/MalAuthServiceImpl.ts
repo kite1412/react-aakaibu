@@ -31,7 +31,7 @@ export default class MalAuthServiceImpl
     body.append("code", code)
     body.append("code_verifier", import.meta.env.VITE_STATIC_PKCE)
     body.append("redirect_uri", this.REDIRECT_URI)
-    
+
     return this.post<TokenResponse>({
       url: MAL_PROXY_TOKEN_EXCHANGE,
       contentType: ContentType.FORM_URL_ENCODED,

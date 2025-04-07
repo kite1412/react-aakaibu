@@ -12,7 +12,7 @@ export default interface JikanService {
   ): Promise<JikanResponse<Array<JikanAnime>>>
 
   getAnimeSchedules(
-    params?: Omit<CommonMediaParams, "type">
+    params?: Omit<CommonMediaParams, "type" | "page" | "limit">
   ): Promise<JikanResponse<Array<JikanAnime>>>
 
   getTopUpcomingAnime(

@@ -28,18 +28,20 @@ export default function MediaCard({
       `}
       onClick={onClick}
     >
-      {top ? top : <></>}
       <img 
         src={media.imageUrl}
         className="h-[180px] aspect-[3/4] rounded-[16px] select=-none"
       />
       <div className="flex flex-col gap-2 pt-2 flex-2/3">
+        {top ? top : <></>}
         <div>
           <div className="text-medium font-bold text-white line-clamp-2">
             {media.title}
           </div>
           <div className="text-dark-gray">
-            {`${media.releaseDate ?? "N/A"} • ${media.entries ?? "N/A"}`}
+            {`${media.releaseDate ?? "N/A"} • ${
+              media.entries && media.entriesDesc ? (media.entries + " " + media.entriesDesc) : "N/A"}`
+            }
           </div>
         </div>
         <div className="flex items-center gap-4 justify-between">
@@ -65,8 +67,8 @@ export default function MediaCard({
             />
           }
         </div>
+        {bottom ? bottom : <></>}
       </div>
-      {bottom ? bottom : <></>}
     </div>
   )
 }

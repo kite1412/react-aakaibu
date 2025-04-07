@@ -1,4 +1,7 @@
-import { getJpgImage, getPrefferedTitleString } from "../../services/jikan/utils/responseUtils"
+import {
+  getJpgImage,
+  getPrefferedTitleString
+} from "../../services/jikan/utils/responseUtils"
 import { capitalize } from "../../utils/strings"
 import Media from "../Media"
 import DateRange from "./DateRange"
@@ -21,7 +24,8 @@ export default interface JikanAnime extends JikanMedia {
   studios: Array<MalUrl>
 }
 
-export function toMedia({
+export function jikanAnimeToMedia({
+  mal_id,
   titles,
   images,
   genres,
@@ -31,10 +35,12 @@ export function toMedia({
   scored_by
 }: JikanAnime): Media {
   return {
+    id: mal_id,
     title: getPrefferedTitleString(titles),
     imageUrl: getJpgImage(images, JikanImageSize.Large),
-    genres: genres.map(g => g.name),
+    genres: genres.map((g) => g.name),
     entries: episodes ?? undefined,
+    entriesDesc: "episodes",
     releaseDate: capitalize(season ?? ""),
     score: score ?? undefined,
     scoredBy: scored_by ?? undefined
