@@ -4,20 +4,23 @@ import { useState } from "react"
 import Languages from "../assets/languages.svg?react"
 import ListPlus from "../assets/list-plus.svg?react"
 import Radio from "../assets/radio.svg?react"
+import RightArrow from "../assets/right-arrow.svg?react"
+import Star from "../assets/star.svg?react"
 import CircularProgressIndicator from "../components/CircularProgressIndicator"
 import DotsIndicator from "../components/DotsIndicator"
+import MediaCard from "../components/MediaCard"
 import RoundedButton from "../components/RoundedButton"
 import SearchBar from "../components/SearchBar"
 import PageLayout from "../layouts/PageLayout"
-import JikanAnime from "../models/jikan/JikanAnime"
+import JikanAnime, { toMedia } from "../models/jikan/JikanAnime"
 import JikanImageSize from "../models/jikan/JikanImageSize"
+import JikanMedia from "../models/jikan/JikanMedia"
 import { jikanService } from "../services"
 import { getJpgImage, getPrefferedTitleString } from "../services/jikan/utils/responseUtils"
-import { trimString } from "../utils/strings"
-import Media from "../models/jikan/Media"
-import RightArrow from "../assets/right-arrow.svg?react"
-import Star from "../assets/star.svg?react"
 import { formatNumber } from "../utils/numbers"
+import { trimString } from "../utils/strings"
+import MediaCards from "../components/MediaCards"
+import SelectionButton from "../components/SelectionButton"
 
 export default function HomePage() {
   const [searchValue, setSearchValue] = useState("")
@@ -51,6 +54,7 @@ export default function HomePage() {
             />
           </div>
           <AiringNow />
+          <AnimeSchedule />
         </div>
         <div className="flex-[30%] pt-2 flex flex-col gap-6">
           {
@@ -219,7 +223,7 @@ function MediaLeaderboard({
   itemsCount
 }: {
   category: string
-  mediaList: Array<Media>
+  mediaList: Array<JikanMedia>
   itemsCount: number
 }) {
   return (
@@ -262,8 +266,8 @@ function RankItem({
   onClick
 }: {
   rank: number
-  media: Media
-  onClick?: (media: Media) => void
+  media: JikanMedia
+  onClick?: (media: JikanMedia) => void
 }) {
   return (
     <div 
@@ -290,7 +294,7 @@ function RankItem({
           </div>
           <p className="text-sm">
             {
-              media.scored_by !== null ? `${formatNumber(media.scored_by)} members` : "N/A"
+              media.scored_by !== null ? `${formatNumber(media.scored_by)} users` : "N/A"
             }
           </p>
         </div>
@@ -310,4 +314,51 @@ function getRankColor(rank: number): string {
     default:
       return "text-content-color"
   }
+}
+
+const days = [
+  ["Mon", "monday"],
+  ["Tue", "tuesday"],
+  ["Wed", "wednesday"],
+  ["Thu", "thursday"],
+  ["Fri", "friday"],
+  ["Sat", "saturday"],
+  ["Sun", "sunday"]
+]
+
+function AnimeSchedule() {
+  const [day, setDay] = useState(days[0][1])
+  const { data, isPending } = useQuery({
+    queryKey: [day],
+    queryFn: async () => {
+      const res = await jikanService.getAnimeSchedules({
+        filter: day
+      })
+      return res
+    } 
+  }) 
+  
+  return (
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
+        <div className="font-bold text-medium">Schedule</div>
+        <div className="flex gap-2">
+          {
+            days.map(d => {
+              const [abr, query] = d
+              return <SelectionButton 
+                action={abr}
+                selected={query === day}
+                onClick={d => setDay(query)}
+              />
+            })
+          }
+        </div>
+      </div>
+      <MediaCards 
+        mediaList={data?.data.map(a => toMedia(a)) ?? []}
+        onClick={m => {}}
+      />
+    </div>
+  )
 }

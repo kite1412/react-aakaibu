@@ -1,8 +1,8 @@
-import MalUrl from "./MalUrl"
 import Images from "./Images"
+import MalUrl from "./MalUrl"
 import Title from "./Title"
 
-export default interface Media {
+export default interface JikanMedia {
   mal_id: number
   url: string
   images: Images

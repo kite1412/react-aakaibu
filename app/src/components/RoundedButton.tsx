@@ -1,5 +1,7 @@
+import { JSX } from "react"
+
 interface RoundedButtonProps {
-  action: any
+  action: JSX.Element | string
   onClick: () => void
   cornerRadius?: number
   verticalPadding?: number

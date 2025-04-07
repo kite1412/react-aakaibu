@@ -30,7 +30,7 @@ export default class JikanServiceImpl
   }
 
   async getAnimeSchedules(
-    params?: CommonMediaParams
+    params?: Omit<CommonMediaParams, "type">
   ): Promise<JikanResponse<Array<JikanAnime>>> {
     return this.get({
       url: JIKAN_ANIME_SCHEDULES,
